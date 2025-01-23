@@ -1,0 +1,48 @@
+@import "../style/variables.scss";
+
+.char {
+
+    &_content {
+        margin-top: 50px;
+        display: grid;
+    }
+
+    &_grid {
+        display: grid;
+        grid-template-columns: repeat(3, 200px);
+        column-gap: 25px;
+        row-gap: 30px;
+    }
+    &_item {
+        width: 200px;
+        height: 318px;
+        background: $dark;
+        
+        padding: 15px;
+        cursor: pointer;
+        transition: .3s transform;
+
+
+        img {
+          width: 200px;
+          height: 200px;
+          object-fit: cover;
+          transform: translate(-15px, -15px);
+        }
+
+        &_selected {
+            box-shadow: 0px 5px 20px $main-color;
+            transform: translateY(-8px);
+        }
+    }   
+
+    &_name {
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 29px;
+        text-transform: uppercase;
+        color: white;
+    }
+}
+
+    

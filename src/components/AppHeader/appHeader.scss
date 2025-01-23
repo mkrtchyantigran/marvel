@@ -1,0 +1,36 @@
+@import "../style/variables.scss";
+
+
+.app {
+  &_header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_title {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 37px;
+
+    span {
+      color: $main-color;
+    }
+  }
+
+  &_menu {
+   ul {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 32px;
+    gap: 8px;
+
+    li {
+      &:hover {
+        color: $main-color;
+      }
+    }
+   }
+  }
+}
