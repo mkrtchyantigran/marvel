@@ -7,25 +7,25 @@
   column-gap: 50px;
   align-items: start;
 
-  &__img {
+  &_img {
     width: 293px;
     height: 450px;
     overflow: hidden;
   }
 
-  &__name {
+  &_name {
     font-weight: bold;
     font-size: 22px;
     line-height: 29px;
   }
 
-  &__descr {
+  &_descr {
     font-size: 18px;
     line-height: 24px;
     margin-top: 25px;
   }
 
-  &__price {
+  &_price {
     font-weight: bold;
     font-size: 24px;
     line-height: 32px;
@@ -33,7 +33,7 @@
     margin-top: 25px;
   }
 
-  &__back {
+  &_back {
     justify-self: end;
     font-weight: bold;
     font-size: 18px;

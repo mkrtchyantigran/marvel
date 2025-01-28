@@ -59,7 +59,7 @@
   &_secondary {
     .inner {
       background-color: $grey;
-
+      border-style: none;
       &::before, &::after {
         border-color: $grey transparent;
         transition: none;

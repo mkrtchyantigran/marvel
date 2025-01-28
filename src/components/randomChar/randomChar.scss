@@ -6,51 +6,47 @@
   box-shadow: 5px 5px 20px rgba(0, 0, 0, .25);
   margin-top: 50px;
 
-  .spinner {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-  }
 
-  &__block {
+
+  &_block {
     padding: 40px 35px;
     display: grid;
     grid-template-columns: 180px auto;
     column-gap: 30px;
   }
 
-  &__img {
+  &_img {
     width: 180px;
     height: 180px;
     object-fit: cover;
   }
 
-  &__info {
+  &_info {
     display: grid;
     grid-template-rows: minmax(29px, auto) 90px 38px;
     row-gap: 10px;
     padding-top: 3px;
   }
 
-  &__name {
+  &_name {
     font-weight: bold;
     font-size: 22px;
     line-height: 29px;
     text-transform: uppercase;
   }
 
-  &__descr {
+  &_descr {
     font-size: 14px;
     line-height: 18px;
   }
 
-  &__btns {
+  &_btns {
     a:nth-child(1) {
       margin-right: 30px;
     }
   }
 
-  &__static {
+  &_static {
     padding: 40px 35px;
     background: $dark;
     position: relative;
@@ -59,7 +55,7 @@
     }
   }
 
-  &__title {
+  &_title {
     font-weight: bold;
     font-size: 24px;
     line-height: 32px;
@@ -71,7 +67,7 @@
     }
   }
 
-  &__decoration {
+  &_decoration {
     position: absolute;
     bottom: 14px;
     right: -37px;

@@ -1,52 +1,109 @@
 import { Component } from "react";
 
-import "./charList.scss"
 
-import abyys from "../../resources/img/abyss.jpg"
+
+import Spinner from "../spinner/Spinner";
+import Error from "../error/Error";
+
+import "./charList.scss";
+import MarvelService from "../../services/MarvelService";
+
+
+
 export default class CharList extends Component {
-    render() {
+    state = {
+        charList: [],
+        loading: true,
+        onRequestLoading: false,
+        error: false,
+        offset: 210
+    }
+
+    
+    marvelService = new MarvelService();
+    
+    componentDidMount() {
+        this.onRequest()
+    }
+    
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
+        .then(this.onCharListLoaded)
+        .catch(this.onError);
+    }
+    
+    onCharListLoading = () => {
+        this.setState({
+            onRequestLoading: true
+        })
+    }
+
+    onCharListLoaded = (newCharList) => {
+        this.setState(({ charList, offset }) => {
+            return {
+                charList: [...charList, ...newCharList],
+                loading: false,
+                onRequestLoading: false,
+                offset: offset + 9      
+            }
+        });
+    }
+
+    onError = () => {
+        this.setState({
+            error: true,
+            loading: false
+        });
+    }
+
+    renderItems(arr) {
+        const items = arr.map(({id, thumbnail, name}) => {
+            let imgStyle = {"objectFit" : "cover" };
+            if(thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg") {
+              imgStyle = {"objectFit" : "contain" }
+            }
+
+            return (
+                <li
+                    className="char_item"
+                    key={id}
+                    onClick={() => this.props.onCharSelected(id)}
+                  >
+                    <img src={thumbnail} alt={name} style={imgStyle} />
+                    <div className="char_name"></div>
+                </li>
+            )
+        })
+
+        return (
+            <ul className="char_grid">
+                {items}
+            </ul>
+        );
+    }
+
+    
+
+    render () {
+        const {charList, loading, error, onRequestLoading, offset} = this.state
+        const items = this.renderItems(charList)
+
+        const isError = error ? <Error /> : null;
+        const isLoading = loading ? < Spinner /> : null;
+        const isContent = !(loading || error) ? items : null;
+
         return (
             <div className="char_list">
-                <ul className="char_grid">
-                    <li className="char_item_selected">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                    <li className="char_item">
-                        <img src={abyys} alt="abyys" />
-                        <div className="char_name">Abyys</div>
-                    </li>
-                </ul>
-                <button className="button button_main long">
-                        <div className="inner">Load More</div>
+                {isError}
+                {isLoading}
+                {isContent}
+                <button 
+                className="button button_main button_long"
+                onClick={() => this.onRequest(offset)}
+                disabled={onRequestLoading}
+                >
+                    <div className="inner">load more</div>
                 </button>
             </div>
         )
