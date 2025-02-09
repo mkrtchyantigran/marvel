@@ -16,7 +16,8 @@ export default class CharList extends Component {
         loading: true,
         onRequestLoading: false,
         error: false,
-        offset: 210
+        offset: 210, // max limit 1560
+        charEnded: false
     }
 
     
@@ -40,12 +41,17 @@ export default class CharList extends Component {
     }
 
     onCharListLoaded = (newCharList) => {
+        let ended = false;
+        if(newCharList.length < 9) {
+            ended = true;
+        }
         this.setState(({ charList, offset }) => {
             return {
                 charList: [...charList, ...newCharList],
                 loading: false,
                 onRequestLoading: false,
-                offset: offset + 9      
+                offset: offset + 9,
+                charEnded: ended
             }
         });
     }
@@ -86,7 +92,14 @@ export default class CharList extends Component {
     
 
     render () {
-        const {charList, loading, error, onRequestLoading, offset} = this.state
+        const {
+            charList,
+            loading, 
+            error, 
+            onRequestLoading, 
+            offset,
+            charEnded
+        } = this.state
         const items = this.renderItems(charList)
 
         const isError = error ? <Error /> : null;
@@ -98,13 +111,22 @@ export default class CharList extends Component {
                 {isError}
                 {isLoading}
                 {isContent}
-                <button 
-                className="button button_main button_long"
-                onClick={() => this.onRequest(offset)}
-                disabled={onRequestLoading}
-                >
-                    <div className="inner">load more</div>
-                </button>
+
+                { 
+                    charEnded ? null : 
+
+                    <button 
+                        className="button button_main button_long"
+                        onClick={() => this.onRequest(offset)}
+                        disabled={onRequestLoading}
+                    >
+                        <div className="inner" >
+                            {charEnded ? "No more characters": "" }
+                            load more
+                        </div>
+                    </button>
+                }
+                
             </div>
         )
     }

@@ -22,6 +22,7 @@ export default class App extends Component {
       selectedChar: id
     })
   }
+
   render() {
     return (
       <div className="app">
@@ -29,7 +30,7 @@ export default class App extends Component {
         < AppHeader />
        <main>
         <ErrorBoundary>
-       < RandomChar />
+          < RandomChar />
         </ErrorBoundary>
         <div className="char_content">
           <CharList  onCharSelected={this.onCharSelected}/>

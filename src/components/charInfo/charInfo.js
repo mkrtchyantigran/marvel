@@ -18,11 +18,14 @@ export default class CharInfo extends Component {
 
     marvelService = new MarvelService();
 
+
+   
+
     componentDidMount () {
       this.updateChar();
     }
 
-    componentDidUpdate(preveProps, preveState) {
+    componentDidUpdate(preveProps) {
       if(this.props.charId !== preveProps.charId) {
         this.updateChar();
       }
@@ -61,6 +64,7 @@ export default class CharInfo extends Component {
 
   render() {
     const {char, loading, error} = this.state;
+
         const iSkeleton =  char|| loading || error ? null : <Skeleton />
         const isError = error ? <Error /> : null;
         const isLoading = loading ? < Spinner /> : null;
@@ -119,30 +123,32 @@ const View = ({char}) => {
           comics.length > 0 ? 
           <>
              <div className="char_comics">Comics: </div>
-        <ul className="char_comics-list">
-        
-          {
-            comics.map((comic, index) => {
-              // eslint-disable-next-line
-              if(index > 10) return;
-              return (
-                <li className="char_comics-item" key={index}>
-                 <a 
-                  href={`${comic.resourceURI}? apikey=7a2f90270b6303fe8a6acd07672c5bba`}
-                  target="_blank"
-                  rel="noreferrer"
-                 >
-                 {comic.name}
-                 </a>
-                </li>
-              )
-            })
-          }
-        </ul>
+
+             <ul className="char_comics-lsit">
+                {
+                  comics.map((comic, index) => {
+                    if(index > 10) return
+                    return (
+                      <li className="char_comics-item">
+                        <a 
+                        href={`${comic.resourceURL} ? apikey=7a2f90270b6303fe8a6acd07672c5bba`}
+                        target="_blank"
+                        rel="noreferrer"
+                        >
+                          {comic.name}
+                        </a>
+                        
+                      </li>
+                    )
+                  })
+                }
+            </ul>
+
           </>
           :
-         <p>There is no comics with this character </p>
+         <p style={{ marginTop: 16, fontWeight: "bold"}}>There is no comics with this character </p>
         }
     </>
   )
 }
+
